@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spartajet.fxboot.demo.dao.NameDao">
+	<select id="queryList" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from person
+	</select>
+	<insert id="insertPerson" parameterType="java.util.Map">
+	INSERT INTO person
+	VALUES
+		(
+	  #{id},
+	  #{firstName},
+	  #{lastName},
+	  #{street},
+	  #{postalCode},
+	  #{city},
+	  #{birthday}
+	)
+	</insert>
+	<update id="updatePerson" parameterType="java.util.HashMap">
+		update person
+		<trim prefix="set" suffixOverrides=",">
+			<if test="firstName !=null and firstName !=''">
+				firstName = #{firstName},
+			</if>
+			<if test="lastName !=null and lastName !=''">
+				lastName = #{lastName},
+			</if>
+			<if test="street !=null and street !=''">
+				street = #{street},
+			</if>
+			<if test="postalCode !=null and postalCode !=''">
+				postalCode = #{postalCode},
+			</if>
+			<if test="city !=null and city !=''">
+				city = #{city},
+			</if>
+			<if test="birthday !=null and birthday !=''">
+				birthday = #{birthday},
+			</if>
+		</trim>
+		where id = #{id}
+	</update>
+	<delete id="deletePerson" parameterType="java.util.HashMap">
+	delete from person where id = #{id}
+	</delete>
+</mapper>
